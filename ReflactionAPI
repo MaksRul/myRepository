@@ -1,0 +1,35 @@
+import java.io.*;
+
+public class Human implements Serializable {
+    @Save
+    String name;
+    @Save
+    int age;
+    @Save
+    boolean sex;
+    File pathFile = new File(" C:\\Users\\Максим\\Desktop\\ReflectionAPI");
+
+    public Human(String name, int age, boolean sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+
+    public void serializable(String text) {
+        try (FileOutputStream fos = new FileOutputStream(pathFile);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(text);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object deSerializeble() throws IOException {
+
+        FileInputStream fio = new FileInputStream(pathFile);
+        ObjectInputStream ois = new ObjectInputStream(fio);
+        Object obj = ois.read();
+        return obj;
+    }
+}
