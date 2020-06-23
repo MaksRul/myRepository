@@ -1,0 +1,23 @@
+import java.lang.reflect.Field;
+
+public class Main {
+    public static void main(String[] args) {
+        Human man = new Human("Volodumer" ,22,true);
+        Class<?> cl = Human.class;
+        Field[] fields = cl.getFields();
+        for (Field field:fields) {
+            if(field.isAnnotationPresent(Save.class)){
+                try {
+                    String serializeble = (field.get(man).toString());
+                    String deserializeble = (field.get(man).toString());
+                    System.out.println(serializeble + deserializeble);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
+    }
+}
